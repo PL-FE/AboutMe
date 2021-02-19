@@ -1,21 +1,8 @@
----
-title: Chrome Devtools的调试技巧
-date: 2020-05-23 00:24:55
-desc:
-tags: 
-- 效率
-categories: 浏览器
----
 
 ![Chrome-DevTools](./chrome-devtools/Chrome-DevTools.jpg)
 
 ### 前言
 > 我们每天都在写 ~~bug~~ 代码，那么拥有一身流畅的调试本领是十分重要的，下面是我总结一些实用的调试技巧，使无论在开发环境、生产环境都能够第一时间定位问题
-
-{% cplayer %}
-    [526464145, 288307]
-{% endcplayer %}
-
 -----------------
 
 ### 正文 
