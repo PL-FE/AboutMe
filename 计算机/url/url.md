@@ -8,15 +8,21 @@
 
 知识点分为两部分
 
-- 网络通信
+- **网络通信**
 
-- 浏览器渲染
+  湖南科技大学-计算机网络 [学银在线](http://www.xueyinonline.com/detail/216843891) / [中国大学 MOOC（慕课）](https://www.icourse163.org/course/HNKJ-1461816178) / [BiliBili](https://www.bilibili.com/video/BV1c4411d7jb)
+
+  书籍[《网络是怎样连接的》](../../resources/网络是怎样连接的.pdf)
+
+- **浏览器渲染**
+
+  [Google Developers](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-tree-construction?hl=zh-cn)
 
 ### 网络通信
 
 首先开始网络通信，具体过程如下图
 
-![网络是怎样连接的](./网络是怎样连接的.png)
+![网络是怎样连接的](.\网络是怎样连接的.png)
 
 _图 1 来源书籍《网络是怎样连接的》_
 
@@ -71,13 +77,13 @@ http://www.lab.glasscom.com/sample1.html
 
 - 字节 → 字符 → 令牌 → 节点 → 对象模型。
 
-![](./full-process.png)
+![](.\full-process.png)
 
 渲染树构建、布局及绘制
 
 CSSOM 树和 DOM 树合并成渲染树，然后用于计算每个可见元素的布局，并输出给绘制流程，将像素渲染到屏幕上。
 
-![](./render-tree-construction.png)
+![](.\render-tree-construction.png)
 
 ---
 
