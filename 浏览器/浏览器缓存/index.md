@@ -83,6 +83,14 @@ Cache-control: max-age //后面会提到
 
 这里的 header 中的信息指的是 expires 和 cahe-control.
 
+ **from memory cache**
+
+![image](强缓存.jpg)
+
+**from disk cache** 
+
+![image](强缓存2.jpg)
+
 ##### Expires
 
 该字段是 **http1.0** 时的规范，它的值为一个**绝对时间**的 GMT 格式的时间字符串，比如 Expires:Mon,18 Oct 2066 23:59:59 GMT。这个时间代表着这个资源的失效时间，在此时间之前，即命中缓存。这种方式有一个明显的缺点，由于失效时间是一个绝对时间，所以当服务器与客户端时间偏差较大时，就会导致缓存混乱。
@@ -126,6 +134,18 @@ Cache-Control 是 **http1.1** 时出现的 header 信息，主要是利用该字
 与 Last-Modify/If-Modify-Since 不同的是，Etag/If-None-Match 返回的是一个校验码。ETag 可以保证每一个资源是唯一的，资源变化都会导致 ETag 变化。服务器根据浏览器上送的 If-None-Match 值来判断是否命中缓存。
 
 与 Last-Modified 不一样的是，当服务器返回 304 Not Modified 的响应时，由于 ETag 重新生成过，response header 中还会把这个 ETag 返回，即使这个 ETag 跟之前的没有变化。
+
+**第一次请求。**
+
+![image](ETag0.jpg)
+
+**命中协商缓存**
+
+![image](ETag1.jpg)
+
+**缓存失效**
+
+![image](ETag.jpg)
 
 **Last-Modified 与 ETag 是可以一起使用的，服务器会优先验证 ETag，一致的情况下，才会继续比对 Last-Modified，最后才决定是否返回 304。**
 
