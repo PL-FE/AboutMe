@@ -1,28 +1,19 @@
-使用 `class `动手实现了一遍 `Promise`
-
-使用 [promises-aplus-tests](https://www.npmjs.com/package/promises-aplus-tests) 检验通过
-
-仓库： [MyPromise](https://github.com/PL-FE/Promise)
-
-以下是主要代码
-
-```js
-const PENDING_STATE = 'pending'
-const FULFILLED_STATE = 'fulfilled'
-const REJECTED_STATE = 'rejected'
+const PENDING_STATE = "pending"
+const FULFILLED_STATE = "fulfilled"
+const REJECTED_STATE = "rejected"
 
 const isFunction = function (fun) {
-  return typeof fun === 'function'
-}
+  return typeof fun === "function"
+};
 
 const isObject = function (value) {
-  return value && typeof value === 'object'
-}
+  return value && typeof value === "object"
+};
 
 class Mypromsie {
   constructor(executor) {
     if (!this || this.constructor !== Mypromsie) {
-      throw new TypeError('Promise must be called with new')
+      throw new TypeError("Promise must be called with new")
     }
 
     if (!isFunction(executor)) {
@@ -43,7 +34,7 @@ class Mypromsie {
         this.state = REJECTED_STATE
         this.value = reason
 
-        this.onRejectedCallbacks.forEach((callback) => callback())
+        this.onRejectedCallbacks.forEach(callback => callback())
       }
     }
 
@@ -55,7 +46,7 @@ class Mypromsie {
 
     const resolutionProcedure = (promise, x) => {
       if (promise === x) {
-        return reject(new TypeError('Promise can not resolved with it seft'))
+        return reject(new TypeError("Promise can not resolved with it seft"))
       }
 
       if (x instanceof Mypromsie) {
@@ -68,21 +59,18 @@ class Mypromsie {
           let then = x.then
 
           if (isFunction(then)) {
-            then.call(
-              x,
-              (y) => {
-                if (called) return
-                called = true
-                resolutionProcedure(promise, y)
-              },
-              (error) => {
-                if (called) return
-                called = true
-                reject(error)
-              }
-            )
+            then.call(x, (y) => {
+              if (called) return
+              called = true
+              resolutionProcedure(promise, y)
+            }, (error) => {
+              if (called) return
+              called = true
+              reject(error)
+            })
             return
           }
+
         } catch (error) {
           if (called) return
           called = true
@@ -94,18 +82,18 @@ class Mypromsie {
         promise.state = FULFILLED_STATE
         promise.value = x
 
-        promise.onFulfilledCallbacks.forEach((callback) => callback())
+        promise.onFulfilledCallbacks.forEach(callback => callback())
       }
     }
   }
 
-  then(onFulfilled, onRejected) {
+  then (onFulfilled, onRejected) {
     onFulfilled = isFunction(onFulfilled) ? onFulfilled : (value) => value
     onRejected = isFunction(onRejected)
       ? onRejected
       : (error) => {
-          throw error
-        }
+        throw error
+      }
 
     const promise2 = new Mypromsie((resolve, reject) => {
       const wrapOnFulfilled = () => {
@@ -142,42 +130,37 @@ class Mypromsie {
     return promise2
   }
 
-  catch(callback) {
+  catch (callback) {
     return this.then(null, callback)
   }
 
-  finally(callback) {
-    return this.then(
-      (data) => {
-        callback()
-        return data
-      },
-      (error) => {
-        callback()
-        throw error
-      }
-    )
+  finally (callback) {
+    return this.then((data) => {
+      callback()
+      return data
+    }, (error) => {
+      callback()
+      throw error
+    })
   }
 
-  static resolve(value) {
+  static resolve (value) {
     return value instanceof Mypromsie
       ? value
       : new Mypromsie((resolve) => resolve(value))
   }
 
-  static reject(reason) {
+  static reject (reason) {
     return new Mypromsie((resolve, reject) => reject(reason))
   }
 
-  static race(promises) {
+  static race (promises) {
     return new Mypromsie((resolve, reject) => {
-      promises.forEach((promise) =>
-        Mypromsie.resolve(promise).then(resolve, rejec)
-      )
+      promises.forEach(promise => Mypromsie.resolve(promise).then(resolve, rejec))
     })
   }
 
-  static all(promises) {
+  static all (promises) {
     return new Mypromsie((resolve, reject) => {
       let result = []
       let resolveCount = 0
@@ -202,7 +185,7 @@ class Mypromsie {
     })
   }
 
-  static allSettled(promises) {
+  static allSettled (promises) {
     return new Mypromsie((resolve, reject) => {
       let result = []
       let resolveCount = 0
@@ -216,7 +199,7 @@ class Mypromsie {
           (data) => {
             result[index] = {
               status: FULFILLED_STATE,
-              value: data,
+              value: data
             }
             if (++resolveCount === len) {
               resolve(result)
@@ -225,7 +208,7 @@ class Mypromsie {
           (error) => {
             result[index] = {
               status: REJECTED_STATE,
-              value: error,
+              value: error
             }
             if (++resolveCount === len) {
               resolve(result)
@@ -236,4 +219,5 @@ class Mypromsie {
     })
   }
 }
-```
+
+module.exports = Mypromsie
