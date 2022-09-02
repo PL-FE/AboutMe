@@ -1,3 +1,4 @@
+// 未考虑正则、set、map、symbol等
 function getType(data) {
   return Object.prototype.toString.call(data).split(" ")[1].slice(0, -1);
 }
