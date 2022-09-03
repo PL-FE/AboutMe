@@ -1,0 +1,14 @@
+# BFC
+
+BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素
+
+## 条件
+
+- 浮动元素（元素的float不是 none，指定float为left或者right就可以创建BFC）
+- 绝对定位元素（元素的 position 为 absolute 或 fixed）
+- display:inline-block，display:table-cell，display:flex，display:inline-flex
+- overflow指定除了visible的值
+
+## 解决的问题
+1. 解决外边距Margin折叠问题
+2. 清除元素内部的浮动
