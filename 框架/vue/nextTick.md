@@ -28,3 +28,11 @@ new Vue({
    }
 })
 ```
+
+## 内部异步实现
+
+依次向下降级
+- Promise.resolve()
+- MutationObserver
+- setImmediate
+- setTimeout
